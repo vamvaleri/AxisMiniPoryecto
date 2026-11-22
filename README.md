@@ -1,4 +1,4 @@
-# ✦ Axis — Gestión de Ventas e Inventario
+# ✦ Axis: Gestión de Ventas e Inventario
 
 Sistema de punto de venta y control de stock desarrollado en **.NET 8 (C#)** con arquitectura compartida entre Web y Escritorio:
 - **Biblioteca Compartida (`Papeleria.Core`)**: Entidades (`Producto`, `Cliente`, `Venta`, `DetalleVenta`), Herencia/Polimorfismo (`ProductoEscolar`), Estructuras de Datos (`List<T>`, `Dictionary<K,V>`, `Queue<T>`) y **Entity Framework Core (SQLite)**.
@@ -6,12 +6,12 @@ Sistema de punto de venta y control de stock desarrollado en **.NET 8 (C#)** con
 - **Aplicación de Escritorio Gráfica (`Papeleria.Desktop`)**: Interfaz gráfica de Windows Forms con componentes personalizados (`BotonAxis`, `PanelBento`) y gráficos vectoriales GDI+.
 
 ## Ejecución
-1. Abre una terminal dentro de la carpeta raíz (`PapeleriaVentasInventario`).
-2. Para ejecutar **Axis Escritorio (Windows Forms)**:
+1. Abrir una terminal dentro de la carpeta raíz (`PapeleriaVentasInventario`).
+2. Para ejecutar **Axis Escritorio**:
    ```bash
    dotnet run --project Papeleria.Desktop/Papeleria.Desktop.csproj
    ```
-3. Para ejecutar **Axis Web (ASP.NET Core MVC)**:
+3. Para ejecutar **Axis Web**:
    ```bash
    dotnet run --project Papeleria.Web/Papeleria.Web.csproj
    ```
