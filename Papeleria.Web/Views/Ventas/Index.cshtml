@@ -1,0 +1,42 @@
+@model List<Venta>
+@{
+    ViewData["Title"] = "Historial de Ventas";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <div>
+        <span class="small fw-bold text-uppercase" style="color: var(--cafe-medio);">✦ REGISTRO CONTABLE</span>
+        <h1 class="mb-0">Historial de Ventas</h1>
+    </div>
+    <a asp-action="Nueva" class="btn btn-axis-primary">+ Nueva Venta</a>
+</div>
+
+<div class="tracker-table-wrapper">
+    <table class="table tracker-table">
+        <thead>
+            <tr>
+                <th># Factura</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Método Pago</th>
+                <th>Total</th>
+                <th>Detalle</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var v in Model)
+            {
+                <tr>
+                    <td><strong>#@v.Id</strong></td>
+                    <td>@v.Fecha.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@v.NombreClienteMostrador</td>
+                    <td><span class="badge-axis-celeste">@v.MetodoPago</span></td>
+                    <td class="fw-bold">$@v.TotalVenta.ToString("N0")</td>
+                    <td>
+                        <a asp-action="Detalle" asp-route-id="@v.Id" class="btn btn-axis-cafe btn-sm">Ver Factura</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

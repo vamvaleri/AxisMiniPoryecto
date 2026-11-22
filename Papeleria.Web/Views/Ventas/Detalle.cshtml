@@ -1,0 +1,51 @@
+@model Venta
+@{
+    ViewData["Title"] = "Comprobante Axis";
+}
+
+<div class="bento-card p-4">
+    <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3" style="border-color: var(--cafe-oscuro) !important;">
+        <div>
+            <span class="badge-axis-celeste mb-1 d-inline-block">✦ COMPROBANTE AXIS</span>
+            <h2 class="mb-0">Factura de Venta #@Model.Id</h2>
+        </div>
+        <span class="fw-bold">@Model.Fecha.ToString("dd/MM/yyyy HH:mm")</span>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6"><strong>Cliente:</strong> @Model.NombreClienteMostrador</div>
+        <div class="col-md-6"><strong>Método de Pago:</strong> @Model.MetodoPago</div>
+    </div>
+
+    <div class="tracker-table-wrapper mb-4">
+        <table class="table tracker-table">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var d in Model.Detalles)
+                {
+                    <tr>
+                        <td>@d.Producto?.Nombre</td>
+                        <td>@d.Cantidad</td>
+                        <td>$@d.PrecioUnitario.ToString("N0")</td>
+                        <td class="fw-bold">$@d.Subtotal.ToString("N0")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div class="d-flex gap-2">
+            <a asp-action="Nueva" class="btn btn-axis-primary">+ Nueva Venta</a>
+            <a asp-action="Index" class="btn btn-axis-cafe">Historial</a>
+        </div>
+        <h2 class="mb-0">Total: $@Model.TotalVenta.ToString("N0")</h2>
+    </div>
+</div>

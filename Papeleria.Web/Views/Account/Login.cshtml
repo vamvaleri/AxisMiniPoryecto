@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+<div class="row justify-content-center mt-4">
+    <div class="col-12 col-md-5">
+        <div class="bento-card p-4 p-md-5">
+            <div class="text-center mb-4">
+                <div style="font-size: 2rem; color: var(--celeste-medio);">✦ ✹ ✦</div>
+                <h1 class="display-4 mb-1">Axis</h1>
+                <p class="small fw-semibold" style="color: var(--cafe-medio);">GESTIÓN DE VENTAS E INVENTARIO</p>
+            </div>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger rounded-4">@ViewBag.Error</div>
+            }
+
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label fw-bold small text-uppercase">Correo Electrónico</label>
+                    <input type="email" name="email" class="form-control" value="admin@papeleria.com" required />
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-bold small text-uppercase">Contraseña</label>
+                    <input type="password" name="password" class="form-control" value="1234" required />
+                </div>
+                <button type="submit" class="btn btn-axis-primary w-100 py-2">Ingresar a Axis ✦</button>
+            </form>
+
+            <hr class="my-4" style="border-color: var(--cafe-suave);" />
+            <div class="bento-card-celeste p-3 small">
+                <strong>Cuentas de acceso rápido:</strong><br/>
+                • Admin: <code>admin@papeleria.com</code> / <code>1234</code><br/>
+                • Vendedor: <code>vendedor@papeleria.com</code> / <code>1234</code>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+@model Producto
+@{
+    ViewData["Title"] = "Nuevo Producto";
+}
+
+<div class="mb-3">
+    <span class="small fw-bold text-uppercase" style="color: var(--cafe-medio);">✦ ALTA EN CATÁLOGO</span>
+    <h1>Registrar Nuevo Producto</h1>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-7">
+        <form asp-action="Create" method="post" class="bento-card p-4">
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label fw-bold small">CÓDIGO</label>
+                    <input asp-for="Codigo" class="form-control" placeholder="Ej: CU-007" required />
+                </div>
+                <div class="col-md-8">
+                    <label class="form-label fw-bold small">NOMBRE DEL PRODUCTO</label>
+                    <input asp-for="Nombre" class="form-control" placeholder="Ej: Libreta Pasta Dura Celeste" required />
+                </div>
+            </div>
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label fw-bold small">CATEGORÍA</label>
+                    <select asp-for="Categoria" class="form-select">
+                        <option>Cuadernos</option>
+                        <option>Escritura</option>
+                        <option>Papeles</option>
+                        <option>Arte</option>
+                        <option>Archivo</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-bold small">PRECIO DE VENTA ($)</label>
+                    <input asp-for="PrecioVenta" type="number" step="100" class="form-control" required />
+                </div>
+            </div>
+            <div class="row g-3 mb-4">
+                <div class="col-6">
+                    <label class="form-label fw-bold small">STOCK INICIAL</label>
+                    <input asp-for="Stock" type="number" class="form-control" value="10" required />
+                </div>
+                <div class="col-6">
+                    <label class="form-label fw-bold small">STOCK MÍNIMO ALERTA</label>
+                    <input asp-for="StockMinimo" type="number" class="form-control" value="5" required />
+                </div>
+            </div>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-axis-primary">Guardar en Axis ✦</button>
+                <a asp-action="Index" class="btn btn-axis-cafe">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>

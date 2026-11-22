@@ -1,0 +1,59 @@
+@{
+    ViewData["Title"] = "Nueva Venta";
+    var productos = ViewBag.Productos as List<Producto> ?? new List<Producto>();
+}
+
+<div class="mb-3">
+    <span class="small fw-bold text-uppercase" style="color: var(--cafe-medio);">✦ PUNTO DE VENTA</span>
+    <h1>Registrar Nueva Venta</h1>
+</div>
+
+<form asp-action="Nueva" method="post">
+    <div class="bento-card mb-4">
+        <div class="row g-3">
+            <div class="col-12 col-md-6">
+                <label class="form-label fw-bold small">CLIENTE</label>
+                <input type="text" name="nombreCliente" class="form-control" value="Cliente Mostrador" required />
+            </div>
+            <div class="col-12 col-md-6">
+                <label class="form-label fw-bold small">MÉTODO DE PAGO</label>
+                <select name="metodoPago" class="form-select">
+                    <option>Efectivo</option>
+                    <option>Transferencia / Nequi</option>
+                    <option>Tarjeta Débito / Crédito</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="tracker-table-wrapper mb-4">
+        <table class="table tracker-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Producto</th>
+                    <th>Precio Unit.</th>
+                    <th>Disponible</th>
+                    <th style="width: 140px;">Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in productos)
+                {
+                    <tr>
+                        <td><strong>@p.Codigo</strong></td>
+                        <td>@p.Nombre</td>
+                        <td>$@p.PrecioVenta.ToString("N0")</td>
+                        <td><span class="badge-axis-celeste">@p.Stock und.</span></td>
+                        <td>
+                            <input type="hidden" name="productoIds" value="@p.Id" />
+                            <input type="number" name="cantidades" min="0" max="@p.Stock" value="0" class="form-control form-control-sm" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit" class="btn btn-axis-primary btn-lg">Confirmar y Facturar ✦</button>
+</form>

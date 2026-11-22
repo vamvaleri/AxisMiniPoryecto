@@ -1,0 +1,66 @@
+@model List<Producto>
+@{
+    ViewData["Title"] = "Inventario";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <div>
+        <span class="small fw-bold text-uppercase" style="color: var(--cafe-medio);">✦ CATÁLOGO AXIS</span>
+        <h1 class="mb-0">Inventario de Productos</h1>
+    </div>
+    @if (User.IsInRole("Administrador"))
+    {
+        <a asp-action="Create" class="btn btn-axis-primary">+ Nuevo Producto</a>
+    }
+</div>
+
+<div class="tracker-table-wrapper">
+    <table class="table tracker-table">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Producto</th>
+                <th>Categoría</th>
+                <th>Precio Venta</th>
+                <th>Stock</th>
+                <th>Estado</th>
+                @if (User.IsInRole("Administrador"))
+                {
+                    <th>Reponer</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td><strong>@p.Codigo</strong></td>
+                    <td>@p.Nombre</td>
+                    <td><span class="badge-axis-celeste">@p.Categoria</span></td>
+                    <td class="fw-bold">$@p.PrecioVenta.ToString("N0")</td>
+                    <td class="fw-bold">@p.Stock und.</td>
+                    <td>
+                        @if (p.Stock <= p.StockMinimo)
+                        {
+                            <span class="badge-axis-cafe">★ @p.EstadoInventario()</span>
+                        }
+                        else
+                        {
+                            <span class="badge-axis-celeste">✦ @p.EstadoInventario()</span>
+                        }
+                    </td>
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <td>
+                            <form asp-action="Reponer" method="post" class="d-flex gap-1" style="max-width: 175px;">
+                                <input type="hidden" name="id" value="@p.Id" />
+                                <input type="number" name="cantidad" min="1" value="10" class="form-control form-control-sm" />
+                                <button type="submit" class="btn btn-axis-primary btn-sm">+Sumar</button>
+                            </form>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

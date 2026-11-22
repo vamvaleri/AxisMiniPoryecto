@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Axis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-crema: #FAF7F2;          /* Crema cálido de fondo (Img 1) */
+            --bg-sidebar: #FFFFFF;        /* Panel lateral limpio (Img 2) */
+            --celeste-claro: #E3F1FA;     /* Celda / Tarjeta celeste hielo (Img 1 y 3) */
+            --celeste-medio: #89C4E8;     /* Celeste acento principal */
+            --celeste-suave: #CBE6F7;     /* Celeste pastel para gradientes y bordes */
+            --cafe-oscuro: #4A3525;       /* Café espresso para títulos y bordes finos */
+            --cafe-medio: #7D5A44;        /* Café caramelo / moca */
+            --cafe-suave: #D7C4B4;        /* Café latte claro para divisores */
+        }
+
+        body {
+            background-color: var(--bg-crema);
+            color: var(--cafe-oscuro);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Tipografía editorial contrastada estilo Image 1 y 3 */
+        .axis-serif, h1, h2, h3, .axis-brand-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 700;
+            color: var(--cafe-oscuro);
+            letter-spacing: -0.02em;
+        }
+
+        /* Layout tipo Dashboard de Image 2 */
+        .axis-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .axis-sidebar {
+            width: 250px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--cafe-suave);
+            padding: 1.75rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .axis-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--cafe-oscuro);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1.8rem;
+            padding-left: 0.5rem;
+        }
+
+        .axis-logo span.spark {
+            color: var(--celeste-medio);
+            font-size: 1.5rem;
+        }
+
+        /* Pill activo estilo Image 2 en Celeste + Café */
+        .axis-nav-pill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.75rem 1.2rem;
+            border-radius: 999px;
+            color: var(--cafe-medio);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.45rem;
+            transition: all 0.2s ease;
+        }
+
+        .axis-nav-pill:hover {
+            background-color: var(--celeste-claro);
+            color: var(--cafe-oscuro);
+        }
+
+        .axis-nav-pill.active {
+            background: linear-gradient(135deg, var(--celeste-medio), #A8D8F5);
+            color: var(--cafe-oscuro);
+            box-shadow: 0 4px 12px rgba(137, 196, 232, 0.35);
+        }
+
+        .axis-main {
+            flex-grow: 1;
+            padding: 1.75rem 2.25rem;
+            position: relative;
+        }
+
+        /* Banner Hero estilo Image 2 en tonos Celeste + Café */
+        .axis-hero-banner {
+            background: linear-gradient(125deg, #B5DDF5 0%, #E3F1FA 65%, #EFE5DC 100%);
+            border: 1.5px solid var(--cafe-oscuro);
+            border-radius: 26px;
+            padding: 1.75rem 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.75rem;
+        }
+
+        .axis-hero-banner::after {
+            content: "✦  ✹  ★";
+            position: absolute;
+            right: 28px;
+            top: 20px;
+            font-size: 1.5rem;
+            color: var(--cafe-medio);
+            opacity: 0.45;
+            letter-spacing: 6px;
+        }
+
+        /* Tarjetas Bento Grid estilo Image 3 */
+        .bento-card {
+            background-color: #FFFFFF;
+            border: 1.5px solid var(--cafe-oscuro);
+            border-radius: 22px;
+            padding: 1.35rem;
+            box-shadow: 4px 4px 0px var(--celeste-suave);
+            transition: transform 0.15s ease;
+        }
+
+        .bento-card-celeste {
+            background-color: var(--celeste-claro);
+            border: 1.5px solid var(--cafe-oscuro);
+            border-radius: 22px;
+            padding: 1.35rem;
+        }
+
+        .bento-card-cafe {
+            background-color: var(--cafe-oscuro);
+            color: var(--bg-crema);
+            border-radius: 22px;
+            padding: 1.35rem;
+        }
+
+        /* Tabla estilo Assignment Tracker (Image 1) con borde fino café y celdas celeste hielo */
+        .tracker-table-wrapper {
+            background-color: var(--celeste-claro);
+            border: 1.5px solid var(--cafe-oscuro);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .tracker-table {
+            margin-bottom: 0;
+            background-color: var(--celeste-claro);
+        }
+
+        .tracker-table thead th {
+            background-color: var(--celeste-suave);
+            color: var(--cafe-oscuro);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            border-bottom: 1.5px solid var(--cafe-oscuro);
+            border-right: 1px solid var(--cafe-oscuro);
+            padding: 0.85rem 1rem;
+        }
+
+        .tracker-table tbody td {
+            background-color: var(--celeste-claro);
+            color: var(--cafe-oscuro);
+            border-bottom: 1px solid var(--cafe-suave);
+            border-right: 1px solid var(--cafe-oscuro);
+            padding: 0.75rem 1rem;
+            vertical-align: middle;
+        }
+
+        .tracker-table tbody tr:hover td {
+            background-color: #D6EAF8;
+        }
+
+        /* Botones redondeados estilo Image 2 */
+        .btn-axis-primary {
+            background: linear-gradient(135deg, var(--celeste-medio), #A8D8F5);
+            border: 1.5px solid var(--cafe-oscuro);
+            color: var(--cafe-oscuro);
+            font-weight: 700;
+            border-radius: 999px;
+            padding: 0.5rem 1.35rem;
+            box-shadow: 2px 2px 0px var(--cafe-oscuro);
+        }
+
+        .btn-axis-primary:hover {
+            background: var(--celeste-medio);
+            color: var(--cafe-oscuro);
+            transform: translateY(-1px);
+        }
+
+        .btn-axis-cafe {
+            background-color: var(--cafe-oscuro);
+            border: 1.5px solid var(--cafe-oscuro);
+            color: #FAF7F2;
+            font-weight: 600;
+            border-radius: 999px;
+            padding: 0.5rem 1.35rem;
+        }
+
+        .btn-axis-cafe:hover {
+            background-color: var(--cafe-medio);
+            color: #FFFFFF;
+        }
+
+        .form-control, .form-select {
+            background-color: #FFFFFF;
+            border: 1.5px solid var(--cafe-oscuro);
+            border-radius: 14px;
+            color: var(--cafe-oscuro);
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--celeste-medio);
+            box-shadow: 0 0 0 0.2rem rgba(137, 196, 232, 0.35);
+        }
+
+        .badge-axis-celeste {
+            background-color: var(--celeste-suave);
+            color: var(--cafe-oscuro);
+            border: 1px solid var(--cafe-oscuro);
+            border-radius: 999px;
+            padding: 0.35em 0.8em;
+            font-weight: 600;
+        }
+
+        .badge-axis-cafe {
+            background-color: var(--cafe-oscuro);
+            color: var(--bg-crema);
+            border-radius: 999px;
+            padding: 0.35em 0.8em;
+            font-weight: 600;
+        }
+
+        @@media (max-width: 768px) {
+            .axis-wrapper { flex-direction: column; }
+            .axis-sidebar { width: 100%; border-right: none; border-bottom: 1.5px solid var(--cafe-oscuro); padding: 1rem; }
+            .axis-main { padding: 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+    @if (User.Identity != null && User.Identity.IsAuthenticated)
+    {
+        var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+        var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+
+        <div class="axis-wrapper">
+            <!-- Barra lateral estilo Dashboard (Image 2) -->
+            <aside class="axis-sidebar">
+                <a class="axis-logo" asp-controller="Home" asp-action="Index">
+                    <span class="spark">✦</span> Axis
+                </a>
+
+                <div class="mb-3 px-2">
+                    <span class="badge-axis-celeste d-inline-block w-100 text-center">
+                        @(User.IsInRole("Administrador") ? "★ Administrador" : "✦ Vendedor")
+                    </span>
+                </div>
+
+                <nav class="flex-grow-1">
+                    <a class="axis-nav-pill @(currentController == "Home" ? "active" : "")" asp-controller="Home" asp-action="Index">
+                        <span>⌂</span> Panel Principal
+                    </a>
+                    <a class="axis-nav-pill @(currentController == "Productos" ? "active" : "")" asp-controller="Productos" asp-action="Index">
+                        <span>▤</span> Inventario
+                    </a>
+                    <a class="axis-nav-pill @(currentController == "Ventas" && currentAction == "Nueva" ? "active" : "")" asp-controller="Ventas" asp-action="Nueva">
+                        <span>✦</span> Nueva Venta
+                    </a>
+                    <a class="axis-nav-pill @(currentController == "Ventas" && currentAction != "Nueva" ? "active" : "")" asp-controller="Ventas" asp-action="Index">
+                        <span>☷</span> Historial Ventas
+                    </a>
+                </nav>
+
+                <div class="pt-3 border-top" style="border-color: var(--cafe-suave) !important;">
+                    <div class="small fw-semibold mb-2 px-2 text-truncate" style="color: var(--cafe-medio);">
+                        @User.Identity.Name
+                    </div>
+                    <a class="btn btn-axis-cafe btn-sm w-100" asp-controller="Account" asp-action="Logout">Cerrar Sesión</a>
+                </div>
+            </aside>
+
+            <!-- Contenido Principal -->
+            <main class="axis-main">
+                @if (TempData["Mensaje"] != null)
+                {
+                    <div class="alert alert-dismissible fade show bento-card-celeste mb-3" role="alert">
+                        <strong>✦ Listo:</strong> @TempData["Mensaje"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                }
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show rounded-4 mb-3" role="alert">
+                        <strong>⚠ Atención:</strong> @TempData["Error"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                }
+
+                @RenderBody()
+            </main>
+        </div>
+    }
+    else
+    {
+        <div class="container py-5">
+            @RenderBody()
+        </div>
+    }
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
